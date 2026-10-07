@@ -11,9 +11,9 @@ const DESCRIPTIONS = [
 
 export function getProductDescription(product) {
   const index = product.id % DESCRIPTIONS.length;
-  const categoria = getCategoryLabel(product.category).toLowerCase();
+  const template = DESCRIPTIONS[index];
 
-  return DESCRIPTIONS[index]
+  return template
     .replace("{produto}", product.title)
-    .replace("{categoria}", categoria);
+    .replace("{categoria}", product.category);
 }
