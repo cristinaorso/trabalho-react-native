@@ -4,16 +4,49 @@ import {
   FlatList,
   Image,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import api from '../services/api';
 import COLORS from '../constants/colors';
 import formatPrice from '../utils/formatPrice';
+
+// A API devolve as categorias em inglês, então traduzimos só para exibição.
+// O valor original (slug) continua sendo usado nas requisições.
+const CATEGORY_LABELS = {
+  beauty: 'Beleza',
+  fragrances: 'Fragrâncias',
+  furniture: 'Móveis',
+  groceries: 'Mercearia',
+  'home-decoration': 'Decoração',
+  'kitchen-accessories': 'Acessórios de cozinha',
+  laptops: 'Notebooks',
+  'mens-shirts': 'Camisas masculinas',
+  'mens-shoes': 'Calçados masculinos',
+  'mens-watches': 'Relógios masculinos',
+  'mobile-accessories': 'Acessórios de celular',
+  motorcycle: 'Motos',
+  'skin-care': 'Cuidados com a pele',
+  smartphones: 'Smartphones',
+  'sports-accessories': 'Acessórios esportivos',
+  sunglasses: 'Óculos de sol',
+  tablets: 'Tablets',
+  tops: 'Blusas',
+  vehicle: 'Veículos',
+  'womens-bags': 'Bolsas femininas',
+  'womens-dresses': 'Vestidos',
+  'womens-jewellery': 'Joias femininas',
+  'womens-shoes': 'Calçados femininos',
+  'womens-watches': 'Relógios femininos',
+};
+
+function getCategoryLabel(category) {
+  return CATEGORY_LABELS[category] || category.replace(/-/g, ' ');
+}
 
 function ProductsScreen({ navigation }) {
   const [products, setProducts] = useState([]);
@@ -84,15 +117,12 @@ function ProductsScreen({ navigation }) {
         />
 
         <View style={styles.productInfo}>
-          <Text
-            style={styles.productTitle}
-            numberOfLines={2}
-          >
+          <Text style={styles.productTitle} numberOfLines={2}>
             {item.title}
           </Text>
 
           <Text style={styles.productCategory}>
-            {item.category}
+            {getCategoryLabel(item.category)}
           </Text>
 
           <Text style={styles.productPrice}>
@@ -107,9 +137,7 @@ function ProductsScreen({ navigation }) {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.productsContainer}>
         <View style={styles.categorySection}>
-          <Text style={styles.sectionTitle}>
-            Categorias
-          </Text>
+          <Text style={styles.sectionTitle}>Categorias</Text>
 
           <ScrollView
             horizontal
@@ -119,8 +147,7 @@ function ProductsScreen({ navigation }) {
             <Pressable
               style={[
                 styles.categoryButton,
-                selectedCategory === '' &&
-                  styles.categoryButtonSelected,
+                selectedCategory === '' && styles.categoryButtonSelected,
               ]}
               onPress={() => setSelectedCategory('')}
             >
@@ -143,9 +170,7 @@ function ProductsScreen({ navigation }) {
                   selectedCategory === category &&
                     styles.categoryButtonSelected,
                 ]}
-                onPress={() =>
-                  setSelectedCategory(category)
-                }
+                onPress={() => setSelectedCategory(category)}
               >
                 <Text
                   style={[
@@ -154,7 +179,7 @@ function ProductsScreen({ navigation }) {
                       styles.categoryButtonTextSelected,
                   ]}
                 >
-                  {category}
+                  {getCategoryLabel(category)}
                 </Text>
               </Pressable>
             ))}
@@ -163,10 +188,7 @@ function ProductsScreen({ navigation }) {
 
         {loading ? (
           <View style={styles.loadingContainer}>
-            <ActivityIndicator
-              size="large"
-              color={COLORS.wine}
-            />
+            <ActivityIndicator size="large" color={COLORS.wine} />
 
             <Text style={styles.loadingText}>
               Carregando produtos...
@@ -174,15 +196,11 @@ function ProductsScreen({ navigation }) {
           </View>
         ) : error ? (
           <View style={styles.loadingContainer}>
-            <Text style={styles.errorText}>
-              {error}
-            </Text>
+            <Text style={styles.errorText}>{error}</Text>
 
             <Pressable
               style={styles.primaryButtonSmall}
-              onPress={() =>
-                loadProducts(selectedCategory)
-              }
+              onPress={() => loadProducts(selectedCategory)}
             >
               <Text style={styles.primaryButtonText}>
                 TENTAR NOVAMENTE
