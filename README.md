@@ -298,8 +298,3 @@ Neste projeto foi utilizada a DummyJSON API, conforme essa possibilidade apresen
 Objetivo do projeto
 O objetivo do projeto é demonstrar a utilização de React Native com Expo para desenvolvimento de uma aplicação mobile capaz de consumir uma API externa, realizar autenticação, apresentar dados dinamicamente e permitir a navegação entre diferentes telas.
 
-Eu deixei no README a explicação de que usamos **DummyJSON porque o próprio enunciado permite essa alternativa caso a Fake Store não esteja funcionando**. Isso é importante para o professor entender por que os endpoints do projeto são `dummyjson.com`.
-
-Também deixei a **estrutura real das pastas que acabamos de criar**, para o README estar coerente com o projeto.
-
-Quando salvar, me diga **“salvei”**. Aí fazemos uma última conferência do projeto antes de colocar no GitHub.
