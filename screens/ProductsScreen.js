@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import api from '../services/api';
+import { api } from '../services/api';
 import COLORS from '../constants/colors';
 import formatPrice from '../utils/formatPrice';
 
@@ -96,9 +96,6 @@ function ProductsScreen({ navigation }) {
     loadProducts(selectedCategory);
   }, [selectedCategory]);
 
-  function handleLogout() {
-    navigation.replace('Login');
-  }
 
   function renderProduct({ item }) {
     return (

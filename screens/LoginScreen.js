@@ -8,7 +8,8 @@ import {
   View,
 } from 'react-native';
 
-import api from '../services/api';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { api } from '../services/api';
 import COLORS from '../constants/colors';
 
 function LoginScreen({ navigation }) {
@@ -69,7 +70,7 @@ function LoginScreen({ navigation }) {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.loginContainer}>
         <View style={styles.loginCard}>
-          <Text style={styles.brand}>PRODUCTS</Text>
+          <Text style={styles.brand}>GLOWSHOP</Text>
 
           <Text style={styles.loginTitle}>Bem-Vindo</Text>
 

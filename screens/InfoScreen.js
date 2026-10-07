@@ -18,7 +18,7 @@ function InfoScreen() {
       >
         <View style={styles.infoCard}>
           <Text style={styles.infoBrand}>
-            PRODUCTS
+            GLOWSHOP
           </Text>
 
           <Text style={styles.infoTitle}>
