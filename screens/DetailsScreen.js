@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { api } from "../services/api";
 import COLORS from "../constants/colors";
 import formatPrice from "../utils/formatPrice";
+import { getCategoryLabel } from "../utils/categoryLabels";
 import { getProductDescription } from "../utils/productDescription.js";
 
 function DetailsScreen({ route }) {
@@ -81,7 +82,9 @@ function DetailsScreen({ route }) {
           <Text style={styles.detailsTitle}>{product.title}</Text>
 
           <View style={styles.detailsCategoryContainer}>
-            <Text style={styles.detailsCategory}>{product.category}</Text>
+            <Text style={styles.detailsCategory}>
+              {getCategoryLabel(product.category)}
+            </Text>
           </View>
 
           <Text style={styles.detailsPrice}>{formatPrice(product.price)}</Text>

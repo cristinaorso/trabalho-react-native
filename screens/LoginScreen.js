@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { api } from '../services/api';
+import { login, AuthError } from '../services/authService';
 import COLORS from '../constants/colors';
 
 function LoginScreen({ navigation }) {
@@ -28,35 +28,13 @@ function LoginScreen({ navigation }) {
     setError('');
 
     try {
-      // Primeiro verifica se o usuário existe na API
-      const usersResponse = await api.get('/users?limit=0');
-
-      const users = usersResponse.data.users || [];
-
-      const userExists = users.some(
-        (user) =>
-          user.username.toLowerCase() ===
-            username.trim().toLowerCase() &&
-          user.password === password
-      );
-
-      if (!userExists) {
-        setError('Login inválido. Verifique usuário e senha.');
-        return;
-      }
-
-      // Depois realiza a autenticação
-      await api.post('/auth/login', {
-        username: username.trim(),
-        password: password,
-        expiresInMins: 30,
-      });
+      await login(username, password);
 
       navigation.replace('Produtos');
     } catch (error) {
       console.log(error);
 
-      if (error.response) {
+      if (error instanceof AuthError || error.response) {
         setError('Login inválido. Verifique usuário e senha.');
       } else {
         setError('Falha de rede. Verifique sua conexão.');
